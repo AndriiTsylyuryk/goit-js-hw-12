@@ -9,7 +9,10 @@ import 'izitoast/dist/css/iziToast.min.css';
 const form = document.querySelector('.search');
 const container = document.querySelector('.pictures');
 const loader = document.querySelector('.loader');
-console.log(loader)
+const moreBtn = document.querySelector('.more__btn');
+
+let pageQ = 1;
+
 
 form.addEventListener('submit', handleSubmit);
 
@@ -31,7 +34,7 @@ function handleSubmit(event) {
 
 showLoader();
 
-  getImages(query)
+  getImages(query, pageQ)
     .then(data => {
       if (data) {
         if (data.hits.length === 0) {
@@ -40,6 +43,13 @@ showLoader();
           );
         }
         imagesRender(data.hits);
+        pageQ += 1;
+
+        if (pageQ > 1) {
+          moreBtn.hidden = false;
+        }
+
+      
       }
     })
     .catch(error => {
@@ -62,4 +72,12 @@ function showLoader() {
 
 function hideLoader() {
   loader.style.display = 'none';
+}
+
+
+
+moreBtn.addEventListener('click', handleClick)
+
+function handleClick() {
+  getImages(query, pageQ); 
 }
