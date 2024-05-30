@@ -73,9 +73,12 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
+
+
 moreBtn.addEventListener('click', handleClick);
 
 function handleClick() {
+  moreBtn.hidden = true;
   showLoader1();
 
   getImages(query, pageQ)
@@ -107,6 +110,7 @@ function handleClick() {
     })
     .finally(() => {
       hideLoader1();
+      moreBtn.hidden = false;
     });
 }
 

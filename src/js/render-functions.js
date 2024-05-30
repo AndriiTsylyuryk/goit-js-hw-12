@@ -1,14 +1,13 @@
+import SimpleLightbox from 'simplelightbox';
 
-import SimpleLightbox from "simplelightbox";
-
-import "simplelightbox/dist/simple-lightbox.min.css";
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const container = document.querySelector('.pictures');
 
 let lightbox;
 
-function imageTemp(image){
-    return `
+function imageTemp(image) {
+  return `
     <li class="gallery-item">
     <a class="gallery-link" href="${image.largeImageURL}">
       <img 
@@ -24,24 +23,22 @@ function imageTemp(image){
       <p class="detail-text"><b class="detail-title">Downloads</b> ${image.downloads}</p>
     </div>
     </li>
-    `
+    `;
 }
-
 
 function imagesTemplate(arr) {
-    return arr.map(imageTemp).join('');
+  return arr.map(imageTemp).join('');
 }
 
-export function imagesRender (images) {
-    const markup = imagesTemplate(images);
-  // container.innerHTML = markup;
-  container.insertAdjacentHTML('beforeend', markup)
-    if (!lightbox) {
-        lightbox = new SimpleLightbox('.pictures a', {
-          captionsData: 'alt',
-          captionDelay: 250,
-        });
-      } else {
-        lightbox.refresh();
-      }
+export function imagesRender(images) {
+  const markup = imagesTemplate(images);
+  container.insertAdjacentHTML('beforeend', markup);
+  if (!lightbox) {
+    lightbox = new SimpleLightbox('.pictures a', {
+      captionsData: 'alt',
+      captionDelay: 250,
+    });
+  } else {
+    lightbox.refresh();
+  }
 }
