@@ -94,9 +94,9 @@ function handleClick() {
 
       console.log(domRect.height)
 
-      
+
       window.scrollBy({
-        top: domRect.height,
+        top: domRect.height * 2,
         behavior: 'smooth',
       });
     

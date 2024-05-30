@@ -83,10 +83,13 @@
 }
 
 .gallery-item {
+  display: block;
+  height: 312px;
   border: 1px solid #2e2f42;
   background-color: #fff;
   width: calc((100% - 48px) / 4);
 }
+
 .gallery-image {
   object-fit: cover;
   width: 100%;
