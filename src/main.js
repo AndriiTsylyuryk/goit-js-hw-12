@@ -11,8 +11,12 @@ const container = document.querySelector('.pictures');
 const loader = document.querySelector('.loader');
 const moreBtn = document.querySelector('.more__btn');
 
-let pageQ = 1;
 
+// console.log(domRect)
+
+let pageQ = 1;
+let query = '';
+let domRect;
 
 form.addEventListener('submit', handleSubmit);
 
@@ -20,7 +24,7 @@ function handleSubmit(event) {
   event.preventDefault();
   container.innerHTML = '';
 
-  const query = event.target.elements.query.value.trim();
+ query = event.target.elements.query.value.trim();
 
   if (!query) {
     iziToast.error({
@@ -32,9 +36,13 @@ function handleSubmit(event) {
     return;
   }
 
+
+pageQ = 1; 
 showLoader();
 
-  getImages(query, pageQ)
+  
+
+  getImages(query)
     .then(data => {
       if (data) {
         if (data.hits.length === 0) {
@@ -43,13 +51,12 @@ showLoader();
           );
         }
         imagesRender(data.hits);
+        const li = container.querySelector('.gallery-item');
+        console.log(li)
+        domRect = li.getBoundingClientRect();
+        console.log(domRect)
+        moreBtn.hidden = false; 
         pageQ += 1;
-
-        if (pageQ > 1) {
-          moreBtn.hidden = false;
-        }
-
-      
       }
     })
     .catch(error => {
@@ -79,5 +86,37 @@ function hideLoader() {
 moreBtn.addEventListener('click', handleClick)
 
 function handleClick() {
-  getImages(query, pageQ); 
+  getImages(query, pageQ)
+    .then(data => {
+      imagesRender(data.hits);
+      pageQ += 1;
+
+
+      
+      window.scrollBy({
+        top: domRect.height,
+        behavior: 'smooth',
+      });
+    
+
+
+      if (pageQ * 15 >= data.totalHits) {
+       iziToast.error({
+      title: 'Error',
+      message:
+        'Were sorry, but youve reached the end of search results.',
+      position: 'topRight',
+       })
+        moreBtn.hidden = true;
+      }
+
+
+    })
+  .catch(error => {
+      iziToast.error({
+        message:
+          'Sorry, there are no images matching your search query. Please try again!',
+        position: 'topRight',
+      });
+    })
 }

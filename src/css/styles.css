@@ -83,8 +83,6 @@
 }
 
 .gallery-item {
-  width: 300px;
-
   border: 1px solid #2e2f42;
   background-color: #fff;
   width: calc((100% - 48px) / 4);

@@ -34,7 +34,8 @@ function imagesTemplate(arr) {
 
 export function imagesRender (images) {
     const markup = imagesTemplate(images);
-    container.innerHTML = markup;
+  // container.innerHTML = markup;
+  container.insertAdjacentHTML('beforeend', markup)
     if (!lightbox) {
         lightbox = new SimpleLightbox('.pictures a', {
           captionsData: 'alt',

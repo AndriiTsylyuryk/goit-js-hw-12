@@ -21,7 +21,7 @@ import axios from 'axios';
 
 // let pageQ = 1;
 // console.log(pageQ);
-// let perPage = 5;
+let perPage = 15;
 
 
 
@@ -43,3 +43,4 @@ export async function getImages(img, page = 1, perPage = 15) {
     return response.data;
     
 }
+
