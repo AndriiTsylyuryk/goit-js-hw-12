@@ -52,9 +52,9 @@ showLoader();
         }
         imagesRender(data.hits);
         const li = container.querySelector('.gallery-item');
-        console.log(li)
+        // console.log(li)
         domRect = li.getBoundingClientRect();
-        console.log(domRect)
+        // console.log(domRect)
         moreBtn.hidden = false; 
         pageQ += 1;
       }
@@ -91,6 +91,8 @@ function handleClick() {
       imagesRender(data.hits);
       pageQ += 1;
 
+
+      console.log(domRect.height)
 
       
       window.scrollBy({
