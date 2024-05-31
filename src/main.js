@@ -45,7 +45,9 @@ function handleSubmit(event) {
             'Sorry, there are no images matching your search query. Please try again!'
           );
         }
+
         imagesRender(data.hits);
+
         const li = container.querySelector('.gallery-item');
         domRect = li.getBoundingClientRect();
         moreBtn.hidden = false;
@@ -73,19 +75,16 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
-
-
 moreBtn.addEventListener('click', handleClick);
 
 function handleClick() {
+  pageQ += 1;
   moreBtn.hidden = true;
   showLoader1();
 
   getImages(query, pageQ)
     .then(data => {
       imagesRender(data.hits);
-
-      pageQ += 1;
 
       window.scrollBy({
         top: domRect.height * 2,
